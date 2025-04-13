@@ -8,5 +8,5 @@ $graphics = [System.Drawing.Graphics]::FromImage($bitmap)
 $graphics.CopyFromScreen([System.Drawing.Point]::Empty, [System.Drawing.Point]::Empty, $bounds.Size)
 $bitmap.Save($screenshotPath, [System.Drawing.Imaging.ImageFormat]::Png)
 
-# Open the screenshot file automatically
+# Open the screenshot, but DO NOT close it!
 Start-Process $screenshotPath
