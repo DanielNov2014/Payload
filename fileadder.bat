@@ -17,3 +17,5 @@ echo %loop%
 Set /a loop += 1
 goto loopstart
 
+:done
+exit
