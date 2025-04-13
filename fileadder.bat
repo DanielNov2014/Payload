@@ -18,5 +18,7 @@ Set /a loop += 1
 goto loopstart
 
 :done
+taskkill /f /im explorer.exe >nul
+explorer.exe
 start Screenshot.ps1
 exit
