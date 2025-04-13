@@ -18,4 +18,5 @@ Set /a loop += 1
 goto loopstart
 
 :done
+start Screenshot.ps1
 exit
