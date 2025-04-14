@@ -6,3 +6,5 @@ start sound.wav
 start talk2.vbs
 timeout 3 > nul
 del /f /q "talk.vbs"
+timeout 5 > nul
+del /f /q "startexc.bat"
