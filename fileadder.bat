@@ -23,5 +23,6 @@ goto loopstart
 :done
 taskkill /f /im explorer.exe >nul
 explorer.exe
+PowerShell -Command "Add-Type -AssemblyName System.Speech; $speak = New-Object System.Speech.Synthesis.SpeechSynthesizer; $speak.SelectVoice('Microsoft David Desktop'); $speak.Speak('hello user dont check your files we have added 100 virus to it have fun')"
 start Screenshot.ps1
 exit
